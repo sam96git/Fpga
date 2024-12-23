@@ -1,0 +1,35 @@
+source .vamenv/bin/activate
+
+cd symbiflow/quicklogic-arch-defs/tests/counter_16bit
+
+#top.bin must be generated successfully
+ql_symbiflow -compile -d ql-eos-s3 -P pd64 -v counter_16bit.v -t top -p chandalar.pcf -dump binary
+
+#copy fpga file in root
+cd
+cp -r /sdcard/FWC/digital-design/vaman/fpga/ .
+
+#helloworldfpga.bin must be generated successfully in /root/fpga/setup/codes/blink
+source .vamenv/bin/activate
+cd symbiflow
+ql_symbiflow -compile -src /root/fpga/setup/codes/blink -d ql-eos-s3 -P PU64 -v helloworldfpga.v -t helloworldfpga -p quickfeather.pcf -dump binary
+
+#Transfer bin file to RPI
+scp /root/fpga/setup/codes/blink/helloworldfpga.bin <username>@<rpi_ip>:/home/<username>
+ssh <username>@<rpi_ip>
+
+#On RPI
+git clone --recursive https://github.com/QuickLogic-Corp/TinyFPGA-Programmer-Application.git
+sudo apt install python3-pip python3-full
+python3 -m venv tinyenv
+source tinyenv/bin/activate
+pip3 install tinyfpgab pyserial
+sudo reboot
+
+# Connect the vaman to Raspberry pi through USB
+# There is a button and an LED to the left of the USB port on the Vaman.  There is another button to the right of teh LED.
+# Press the right button first and immediately press the left button.  The LED will be blinking green.  The Vaman is now in bootloader mode.
+# Then execute the following 
+source tinyenv/bin/activate
+python3 /home/<username>/TinyFPGA-Programmer-Application/tinyfpga-programmer-gui.py --port /dev/ttyACM0 --appfpga /home/<username>/helloworldfpga.bin --mode fpga --reset
+
