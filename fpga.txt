@@ -1,0 +1,15 @@
+1) The "Vaman board" refers to the Vaman single-board computer (SBC) used for a variety of applications.
+
+2) The VAMAN board is a training and development board often used in embedded systems education and research. 
+It typically integrates ARM processors, FPGA, and various GPI/O interfaces, allowing students and engineers to learn and prototype real-time embedded applications.
+
+3) The Vaaman board, particularly with its integrated FPGA, can be used for hardware acceleration in various applications and autonomous navigation systems in drones and robots.
+
+4) FPGA (Field-Programmable Gate Array): An FPGA is a integrated circuit that can be programmed to implement custom digital logic. 
+Unlike a microcontroller (which runs sequential code), an FPGA is programmed using hardware description languages (HDL) like Verilog to build custom digital circuits.
+
+5) ARM processors are widely used in embedded systems, including mobile phones leading to low power consumption and high performance.
+
+6) Right side of vaman board represents ESP32 and left side M4-FPGA (Pygmy).
+
+7) The VamanLC Board uses tools that can run on your Android Phone without needing a Laptop/PC.
