@@ -1,3 +1,4 @@
+python3 -m venv .vamenv
 source .vamenv/bin/activate
 
 cd symbiflow/quicklogic-arch-defs/tests/counter_16bit
